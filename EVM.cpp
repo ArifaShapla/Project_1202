@@ -3,12 +3,23 @@
 
 using namespace std;
 
-struct Candidate
+struct Voter
 {
-    string name;
-    int votes;
-    Candidate* next;
+    int NIDnumber;
+    int vote;
+    Voter* next;
 };
+int votes[3] = {0};
+int spoiltVotes = 0;
+
+Voter* createVoter(int NIDnumber, int vote)
+{
+    Voter* newVoter = new Voter;
+    newVoter->NIDnumber = NIDnumber;
+    newVoter->vote = vote;
+    newVoter->next = nullptr;
+    return newVoter;
+}
 
 class CandidateList
 {
@@ -38,19 +49,75 @@ public:
         cout << endl;
     }
 
+    void vote(string candidateName)
+    {
+        Candidate* current = head;
+        while (current != nullptr)
+        {
+            if (current->name == candidateName)
+            {
+                current->votes++;
+                cout << "Vote for " << candidateName << " recorded.\n";
+                return;
+            }
+            current = current->next;
+        }
+        cout << "Candidate not found.\n";
+    }
+    void displayResults()
+    {
+        Candidate* current = head;
+        cout << "Election Results:\n";
+        while (current != nullptr)
+        {
+            cout << current->name << ": " << current->votes << " votes\n";
+            current = current->next;
+        }
+        cout << endl;
+    }
 };
 
 int main()
 {
+        string userName;
+    string userPassword;
+    int loginAttempt = 0;
+
+    while (loginAttempt < 5)
+    {
+        cout << "Please enter your user name: ";
+        cin >> userName;
+        cout << "Please enter your user password: ";
+        cin >> userPassword;
+
+        if (userName == "Admin" && userPassword == "Shakib75")
+        {
+            cout << "Welcome Admin!\n";
+            break;
+        }
+
+        else
+        {
+            cout << "Invalid login attempt. Please try again.\n" << '\n';
+            loginAttempt++;
+        }
+    }
+    if (loginAttempt == 5)
+    {
+            cout << "Too many login attempts! The program will now terminate.";
+            return 0;
+    }
+
+    cout << "Thank you for logging in.\n";
     CandidateList candidateList;
-    candidateList.addCandidate("Candidate 1");
-    candidateList.addCandidate("Candidate 2");
-    candidateList.addCandidate("Candidate 3");
+    candidateList.addCandidate("TIGER");
+    candidateList.addCandidate("LION");
+    candidateList.addCandidate("BLACK CAT");
 
     int choice;
     do
     {
-        // Display menu
+
         cout << "1. Display Candidates\n";
         cout << "2. Vote\n";
         cout << "3. Display Results\n";
@@ -70,8 +137,13 @@ int main()
             cout << "Enter the name of the candidate you want to vote for: ";
             cin.ignore();
             getline(cin, candidateName);
+            candidateList.vote(candidateName);
             break;
         }
+        case 3:
+            candidateList.displayResults();
+            break;
+
         case 4:
             cout << "Exiting...\n";
             break;
