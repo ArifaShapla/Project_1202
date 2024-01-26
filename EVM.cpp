@@ -21,6 +21,18 @@ Voter* createVoter(int NIDnumber, int vote)
     return newVoter;
 }
 
+void castVote(int vote)
+{
+    if (vote >= 1 && vote <= 3)
+    {
+        votes[vote - 1]++;
+    }
+    else
+    {
+        spoiltVotes++;
+    }
+}
+
 class CandidateList
 {
 private:
