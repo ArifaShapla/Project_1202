@@ -33,6 +33,35 @@ void castVote(int vote)
     }
 }
 
+void announceWinner()
+{
+    int maxVotesIndex = 0;
+    for (int i = 1; i < 3; i++)
+    {
+        if (votes[i] > votes[maxVotesIndex])
+        {
+            maxVotesIndex = i;
+        }
+    }
+
+    cout << "The winner is: ";
+    switch (maxVotesIndex)
+    {
+    case 0:
+        cout << "TIGER";
+        break;
+    case 1:
+        cout << "LION";
+        break;
+    case 2:
+        cout << "BLACK CAT";
+        break;
+    default:
+        cout << "No winner";
+    }
+    cout << " with " << votes[maxVotesIndex] << " votes." << endl;
+}
+
 class CandidateList
 {
 private:
