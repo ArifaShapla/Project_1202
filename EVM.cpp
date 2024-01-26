@@ -99,51 +99,56 @@ int main()
     int n, NIDnumber, vote;
     cout << "Admin..plz..Enter the number of voters:" << endl;
     cin >> n;
-    CandidateList candidateList;
-    candidateList.addCandidate("TIGER");
-    candidateList.addCandidate("LION");
-    candidateList.addCandidate("BLACK CAT");
 
-    int choice;
-    do
+    Voter* head = nullptr;
+    Voter* current = nullptr;
+
+        for (int i = 1; i <= n; i++)
     {
+        cout << "Enter your NIDnumber:" << endl;
+        cin >> NIDnumber;
 
-        cout << "1. Display Candidates\n";
-        cout << "2. Vote\n";
-        cout << "3. Display Results\n";
-        cout << "4. Exit\n";
-        cout << "Enter your choice: ";
-        cin >> choice;
-
-        switch (choice)
+        if (NIDnumber <= 50)
         {
-        case 1:
-            candidateList.displayCandidates();
-            break;
+            cout << "You can vote..." << endl;
+            cout << "List of political parties:" << endl;
+            cout << "1.TIGER" << endl;
+            cout << "2.LION" << endl;
+            cout << "3.BLACK CAT" << endl;
 
-        case 2:
-        {
-            string candidateName;
-            cout << "Enter the name of the candidate you want to vote for: ";
-            cin.ignore();
-            getline(cin, candidateName);
-            candidateList.vote(candidateName);
-            break;
+            cout << "Select your political party:" << endl;
+
+            cin >> vote;
+
+            if (vote >= 1 && vote <= 3)
+            {
+                castVote(vote);
+
+                if (head == nullptr)
+                {
+                    head = createVoter(NIDnumber, vote);
+                    current = head;
+                }
+                else
+                {
+                    current->next = createVoter(NIDnumber, vote);
+                    current = current->next;
+                }
+            }
+            else
+            {
+                spoiltVotes++;
+            }
         }
-        case 3:
-            candidateList.displayResults();
-            break;
-
-        case 4:
-            cout << "Exiting...\n";
-            break;
-
-        default:
-            cout << "Invalid choice. Please try again.\n";
-            break;
+        else
+        {
+            cout << "You can not vote...." << endl;
         }
     }
-    while (choice != 4);
 
-    return 0;
+    cout << "Number of votes for TIGER: " << votes[0] << endl;
+    cout << "Number of votes for LION: " << votes[1] << endl;
+    cout << "Number of votes for BLACK CAT: " << votes[2] << endl;
+
+    cout << "Number of spoilt votes: " << spoiltVotes << endl;
 }
