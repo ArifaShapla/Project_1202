@@ -62,61 +62,7 @@ void announceWinner()
     cout << " with " << votes[maxVotesIndex] << " votes." << endl;
 }
 
-class CandidateList
-{
-private:
-    Candidate* head;
 
-public:
-    CandidateList() : head(nullptr) {}
-
-    void addCandidate(string name)
-    {
-        Candidate* newCandidate = new Candidate;
-        newCandidate->name = name;
-        newCandidate->votes = 0;
-        newCandidate->next = head;
-        head = newCandidate;
-    }
-    void displayCandidates()
-    {
-        Candidate* current = head;
-        cout << "Candidates:\n";
-        while (current != nullptr)
-        {
-            cout << current->name << "\n";
-            current = current->next;
-        }
-        cout << endl;
-    }
-
-    void vote(string candidateName)
-    {
-        Candidate* current = head;
-        while (current != nullptr)
-        {
-            if (current->name == candidateName)
-            {
-                current->votes++;
-                cout << "Vote for " << candidateName << " recorded.\n";
-                return;
-            }
-            current = current->next;
-        }
-        cout << "Candidate not found.\n";
-    }
-    void displayResults()
-    {
-        Candidate* current = head;
-        cout << "Election Results:\n";
-        while (current != nullptr)
-        {
-            cout << current->name << ": " << current->votes << " votes\n";
-            current = current->next;
-        }
-        cout << endl;
-    }
-};
 
 int main()
 {
@@ -126,12 +72,12 @@ int main()
 
     while (loginAttempt < 5)
     {
-        cout << "Please enter your user name: ";
+        cout << "Admin user name: ";
         cin >> userName;
         cout << "Please enter your user password: ";
         cin >> userPassword;
 
-        if (userName == "Admin" && userPassword == "Shakib75")
+        if (userName == "Shapla" && userPassword == "Shakib75")
         {
             cout << "Welcome Admin!\n";
             break;
@@ -150,6 +96,9 @@ int main()
     }
 
     cout << "Thank you for logging in.\n";
+    int n, NIDnumber, vote;
+    cout << "Admin..plz..Enter the number of voters:" << endl;
+    cin >> n;
     CandidateList candidateList;
     candidateList.addCandidate("TIGER");
     candidateList.addCandidate("LION");
