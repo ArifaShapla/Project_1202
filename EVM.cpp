@@ -151,4 +151,48 @@ int main()
     cout << "Number of votes for BLACK CAT: " << votes[2] << endl;
 
     cout << "Number of spoilt votes: " << spoiltVotes << endl;
+
+    string Name;
+    string Password;
+    int login = 0;
+
+    while (login < 5)
+    {
+        cout << "Admin user name: ";
+        cin >>Name;
+        cout << "Please enter your user password: ";
+        cin >> Password;
+
+        if (Name == "Shapla" && Password == "Shakib75")
+        {
+            cout << "Welcome Admin!\n";
+            break;
+        }
+
+        else
+        {
+            cout << "Invalid login attempt. Please try again.\n" << '\n';
+            login++;
+        }
+    }
+    if (login == 5)
+    {
+        cout << "Too many login attempts! The program will now terminate.";
+        return 0;
+    }
+
+    cout << "******\n";
+
+     announceWinner();
+
+     current = head;
+    while (current != nullptr)
+    {
+        Voter* temp = current;
+        current = current->next;
+        delete temp;
+    }
+
+    return 0;
+
 }
